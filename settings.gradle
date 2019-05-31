@@ -1,0 +1,5 @@
+rootProject.name = 'httpgateway-demo'
+include 'product-service'
+include 'inventory-service'
+include 'store-app'
+
