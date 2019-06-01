@@ -15,22 +15,81 @@
  */
 package demo.inventory.service;
 
+import demo.inventory.service.error.ProductNotFoundException;
+import demo.inventory.service.error.SkuNotFoundException;
 import demo.inventory.service.model.SkuInventory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Component
 public class InventoryService {
     private static final Logger LOG = LoggerFactory.getLogger(InventoryService.class);
+    private static final Random RAND = new Random(System.currentTimeMillis());
 
-    public SkuInventory getInventoryForSku(String sku) {
-        return null;
+    private final Map<String, List<SkuInventory>> productInventory = new HashMap<>();
+    private final Map<String, SkuInventory> skuInventory = new HashMap<>();
+
+    /**
+     * Retrieve the inventory for all skus of a product.
+     *
+     * @param productId product id
+     * @return a list of the inventory for each sku of the product
+     */
+    public List<SkuInventory> getProductInventory(String productId) {
+        List<SkuInventory> inv = productInventory.get(productId);
+
+        if (inv == null) {
+            throw new ProductNotFoundException(productId);
+        }
+
+        return inv;
     }
 
-    public List<SkuInventory> getInventoryForProduct(String productId) {
-        return null;
+    /**
+     * Retrieve the inventory for a single sku.
+     *
+     * @param sku stockkeeping unit id
+     * @return the inventory for the sku
+     */
+    public SkuInventory getSkuInventory(String sku) {
+        SkuInventory inv = this.skuInventory.get(sku);
+
+        if (inv == null) {
+            throw new SkuNotFoundException(sku);
+        }
+
+        return inv;
+    }
+
+    @PostConstruct
+    public void init() {
+        // Initialize the inventory with 10 dummy products
+        for (int i = 1; i <= 10; i++) {
+            List<SkuInventory> invs = new ArrayList<>();
+
+            for (int s = 0; s < RAND.nextInt((10 - 1) + 1) + 1; s++) {
+                SkuInventory inv = initDummySkuInventory();
+                skuInventory.put(inv.getSku(), inv);
+                invs.add(inv);
+            }
+
+            productInventory.put(String.format("%03d", i), invs);
+        }
+    }
+
+    private SkuInventory initDummySkuInventory() {
+        SkuInventory skuInventory = new SkuInventory();
+        skuInventory.setSku(String.format("%05d", RAND.nextInt((10000) + 1)));
+        skuInventory.setUnits(RAND.nextInt((100) + 1));
+
+        return skuInventory;
     }
 }

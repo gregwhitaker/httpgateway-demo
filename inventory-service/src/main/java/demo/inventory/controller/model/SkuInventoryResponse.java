@@ -16,12 +16,21 @@
 package demo.inventory.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import demo.inventory.service.model.SkuInventory;
 
 @JsonPropertyOrder({
         "sku",
         "units"
 })
 public class SkuInventoryResponse {
+
+    public static SkuInventoryResponse from(SkuInventory skuInv) {
+        SkuInventoryResponse response = new SkuInventoryResponse();
+        response.setSku(skuInv.getSku());
+        response.setUnits(skuInv.getUnits());
+
+        return response;
+    }
 
     private String sku;
     private int units;

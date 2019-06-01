@@ -18,6 +18,7 @@ package demo.inventory.controller;
 import demo.inventory.controller.model.ProductInventoryResponse;
 import demo.inventory.controller.model.SkuInventoryResponse;
 import demo.inventory.service.InventoryService;
+import demo.inventory.service.model.SkuInventory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class InventoryController {
 
     @GetMapping("/inventory/sku/{skuId}")
     public ResponseEntity<SkuInventoryResponse> getSkuInventory(@PathVariable("skuId") String skuId) {
-        return ResponseEntity.ok().build();
+        SkuInventory skuInventory = inventoryService.getSkuInventory(skuId);
+        return ResponseEntity.ok(SkuInventoryResponse.from(skuInventory));
     }
 
     @GetMapping("/inventory/product/{productId}")
