@@ -1,8 +1,16 @@
 package demo.product.controller.model;
 
+import demo.product.service.model.ProductInfo;
+
 import java.util.List;
 
 public class ProductInfoResponse {
+
+    public static ProductInfoResponse from(final ProductInfo productInfo) {
+        ProductInfoResponse response = new ProductInfoResponse();
+
+        return response;
+    }
 
     private String productId;
     private String shortName;

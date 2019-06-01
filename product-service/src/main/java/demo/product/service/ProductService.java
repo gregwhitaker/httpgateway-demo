@@ -21,7 +21,7 @@ public class ProductService {
     private final Map<String, ProductInfo> productInfos = new HashMap<>();
 
     /**
-     * 
+     *
      * @param productId
      * @return
      */

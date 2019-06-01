@@ -2,6 +2,7 @@ package demo.product.controller;
 
 import demo.product.controller.model.ProductInfoResponse;
 import demo.product.service.ProductService;
+import demo.product.service.model.ProductInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ProductController {
 
     @GetMapping("/product/{productId}")
     public ResponseEntity<ProductInfoResponse> getProductInfo(@PathVariable("productId") String productId) {
-        return null;
+        ACCESS_LOG.info("Received request for getProductInfo [productId: {}]", productId);
+
+        ProductInfo productInfo = productService.getProductInfo(productId);
+        return ResponseEntity.ok(ProductInfoResponse.from(productInfo));
     }
 }
