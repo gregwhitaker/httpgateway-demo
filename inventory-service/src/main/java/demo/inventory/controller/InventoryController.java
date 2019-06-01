@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InventoryController {
-    private static final Logger LOG = LoggerFactory.getLogger("demo");
+    private static final Logger LOG = LoggerFactory.getLogger("netifi-demo");
 
     @Autowired
     private InventoryService inventoryService;
