@@ -1,5 +1,6 @@
 package demo.product.service;
 
+import demo.product.service.error.ProductNotFoundException;
 import demo.product.service.model.PriceInfo;
 import demo.product.service.model.ProductInfo;
 import demo.product.service.model.SkuInfo;
@@ -8,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -20,8 +20,19 @@ public class ProductService {
 
     private final Map<String, ProductInfo> productInfos = new HashMap<>();
 
+    /**
+     * 
+     * @param productId
+     * @return
+     */
     public ProductInfo getProductInfo(String productId) {
-        return null;
+        ProductInfo productInfo = productInfos.get(productId);
+
+        if (productInfo == null) {
+            throw new ProductNotFoundException(productId);
+        }
+
+        return productInfo;
     }
 
     @PostConstruct
