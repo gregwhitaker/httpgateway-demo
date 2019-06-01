@@ -36,19 +36,19 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
-    @GetMapping("/inventory/sku/{skuId}")
-    public ResponseEntity<SkuInventoryResponse> getSkuInventory(@PathVariable("skuId") String skuId) {
-        ACCESS_LOG.info("Received request for getSkuInventory [skuId: {}]", skuId);
-
-        SkuInventory skuInventory = inventoryService.getSkuInventory(skuId);
-        return ResponseEntity.ok(SkuInventoryResponse.from(skuInventory));
-    }
-
     @GetMapping("/inventory/product/{productId}")
     public ResponseEntity<ProductInventoryResponse> getProductInventory(@PathVariable("productId") String productId) {
         ACCESS_LOG.info("Received request for getProductInventory [productId: {}]", productId);
 
         List<SkuInventory> skuInventories = inventoryService.getProductInventory(productId);
         return ResponseEntity.ok(ProductInventoryResponse.from(productId, skuInventories));
+    }
+
+    @GetMapping("/inventory/sku/{skuId}")
+    public ResponseEntity<SkuInventoryResponse> getSkuInventory(@PathVariable("skuId") String skuId) {
+        ACCESS_LOG.info("Received request for getSkuInventory [skuId: {}]", skuId);
+
+        SkuInventory skuInventory = inventoryService.getSkuInventory(skuId);
+        return ResponseEntity.ok(SkuInventoryResponse.from(skuInventory));
     }
 }
