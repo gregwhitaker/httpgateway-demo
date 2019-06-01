@@ -16,6 +16,7 @@
 package demo.inventory.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import demo.inventory.service.model.SkuInventory;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ import java.util.List;
         "skus"
 })
 public class ProductInventoryResponse {
+
+    public static ProductInventoryResponse from (String productId, List<demo.inventory.service.model.SkuInventory> skus) {
+        return null;
+    }
 
     private String productId;
     private List<SkuInventory> skus;

@@ -27,21 +27,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class InventoryController {
-    private static final Logger LOG = LoggerFactory.getLogger("netifi-demo");
+    private static final Logger ACCESS_LOG = LoggerFactory.getLogger("netifi-demo");
 
     @Autowired
     private InventoryService inventoryService;
 
     @GetMapping("/inventory/sku/{skuId}")
     public ResponseEntity<SkuInventoryResponse> getSkuInventory(@PathVariable("skuId") String skuId) {
+        ACCESS_LOG.info("Received request for getSkuInventory [skuId: {}]", skuId);
+
         SkuInventory skuInventory = inventoryService.getSkuInventory(skuId);
         return ResponseEntity.ok(SkuInventoryResponse.from(skuInventory));
     }
 
     @GetMapping("/inventory/product/{productId}")
     public ResponseEntity<ProductInventoryResponse> getProductInventory(@PathVariable("productId") String productId) {
-        return ResponseEntity.ok().build();
+        ACCESS_LOG.info("Received request for getProductInventory [productId: {}]", productId);
+
+        List<SkuInventory> skuInventories = inventoryService.getProductInventory(productId);
+        return ResponseEntity.ok(ProductInventoryResponse.from(productId, skuInventories));
     }
 }
