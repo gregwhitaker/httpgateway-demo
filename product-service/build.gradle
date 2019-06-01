@@ -1,16 +1,31 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
 plugins {
     id 'java'
-}
-
-group 'com.netifi'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
+    id 'application'
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'com.bmuschko.docker-remote-api' version '3.4.4'
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
+
+mainClassName = 'demo.product.Application'
+
+// Packaging
+task buildImage(type: DockerBuildImage, dependsOn: build) {
+    buildArgs = ['JAR_FILE': "${bootJar.archiveName}"]
+    dockerFile = file("${projectDir}/Dockerfile")
+    inputDir = file("${projectDir}")
+    tags = ["netifi/${projectDir.name}", "netifi/${projectDir.name}:${version}"]
+}
+
+// Local Development
+task bootRunLocal {
+    bootRun.configure {
+        systemProperty "spring.profiles.active", 'local'
+    }
+}
+bootRunLocal.finalizedBy bootRun
