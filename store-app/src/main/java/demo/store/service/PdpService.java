@@ -15,9 +15,13 @@
  */
 package demo.store.service;
 
+import demo.store.service.model.PdpData;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PdpService {
 
+    public PdpData getPdpData(String productId) {
+        return null;
+    }
 }

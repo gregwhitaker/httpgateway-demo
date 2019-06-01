@@ -16,8 +16,10 @@
 package demo.store.controller;
 
 import demo.store.service.PdpService;
+import demo.store.service.model.PdpData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,7 +30,15 @@ public class PdpController {
     private PdpService pdpService;
 
     @GetMapping("/pdp/{productId}")
-    public String pdp(@PathVariable("productId") String productId) {
-        return "pdp";
+    public String pdp(@PathVariable("productId") String productId,
+                      Model model) {
+        PdpData pdpData = pdpService.getPdpData(productId);
+
+        if (pdpData != null) {
+            model.addAttribute("pdpData", pdpData);
+            return "pdp";
+        } else {
+            return "notfound";
+        }
     }
 }
