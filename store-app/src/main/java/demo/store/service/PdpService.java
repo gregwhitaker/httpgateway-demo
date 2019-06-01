@@ -13,15 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package demo.store;
+package demo.store.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class Application {
-
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
-    }
+public class PdpService {
 }

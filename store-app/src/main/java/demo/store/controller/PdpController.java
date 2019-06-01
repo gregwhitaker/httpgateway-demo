@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package demo.store;
+package demo.store.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 
-@SpringBootApplication
-public class Application {
+@Controller
+public class PdpController {
 
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
-    }
 }
