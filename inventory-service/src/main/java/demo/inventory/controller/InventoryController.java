@@ -31,7 +31,7 @@ import java.util.List;
 
 @RestController
 public class InventoryController {
-    private static final Logger ACCESS_LOG = LoggerFactory.getLogger("netifi-demo");
+    private static final Logger ACCESS_LOG = LoggerFactory.getLogger("access");
 
     @Autowired
     private InventoryService inventoryService;

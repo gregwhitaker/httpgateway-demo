@@ -18,6 +18,7 @@ package demo.inventory.controller.model;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import demo.inventory.service.model.SkuInventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonPropertyOrder({
@@ -26,12 +27,25 @@ import java.util.List;
 })
 public class ProductInventoryResponse {
 
-    public static ProductInventoryResponse from (String productId, List<demo.inventory.service.model.SkuInventory> skus) {
-        return null;
+    /**
+     *
+     * @param productId
+     * @param skus
+     * @return
+     */
+    public static ProductInventoryResponse from (String productId, List<SkuInventory> skus) {
+        List<SkuInventoryResponse> skuInvResponses = new ArrayList<>(skus.size());
+        skus.forEach(skuInventory -> skuInvResponses.add(SkuInventoryResponse.from(skuInventory)));
+
+        ProductInventoryResponse response = new ProductInventoryResponse();
+        response.setProductId(productId);
+        response.setSkus(skuInvResponses);
+
+        return response;
     }
 
     private String productId;
-    private List<SkuInventory> skus;
+    private List<SkuInventoryResponse> skus;
 
     public String getProductId() {
         return productId;
@@ -41,11 +55,11 @@ public class ProductInventoryResponse {
         this.productId = productId;
     }
 
-    public List<SkuInventory> getSkus() {
+    public List<SkuInventoryResponse> getSkus() {
         return skus;
     }
 
-    public void setSkus(List<SkuInventory> skus) {
+    public void setSkus(List<SkuInventoryResponse> skus) {
         this.skus = skus;
     }
 
@@ -53,7 +67,15 @@ public class ProductInventoryResponse {
             "sku",
             "units"
     })
-    class SkuInventory {
+    static class SkuInventoryResponse {
+
+        public static SkuInventoryResponse from(SkuInventory skuInventory) {
+           SkuInventoryResponse response = new SkuInventoryResponse();
+           response.setSku(skuInventory.getSku());
+           response.setUnits(skuInventory.getUnits());
+
+           return response;
+        }
 
         private String sku;
         private int units;

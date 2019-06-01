@@ -24,6 +24,11 @@ import demo.inventory.service.model.SkuInventory;
 })
 public class SkuInventoryResponse {
 
+    /**
+     *
+     * @param skuInv
+     * @return
+     */
     public static SkuInventoryResponse from(SkuInventory skuInv) {
         SkuInventoryResponse response = new SkuInventoryResponse();
         response.setSku(skuInv.getSku());
