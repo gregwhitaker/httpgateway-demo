@@ -1,7 +1,18 @@
 # httpgateway-demo
 Simple application for demonstrating the routing capabilities of the Netifi HTTP Gateway.
 
-# License
+## Prerequisites
+This demo requires a running Consul instance for service discovery.
+
+## Building the Demo
+Run the following command to build the demo components:
+
+    ./gradlew clean build
+
+## Running the Demo
+TBD
+
+## License
 Copyright 2019, [Netifi Inc.](https://www.netifi.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
