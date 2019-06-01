@@ -4,7 +4,7 @@ Service that returns inventory data at both SKU and product levels.
 ## Running the Service
 Run the following command to start the service:
 
-    ./gradlew :inventory-service:bootRun
+    ./gradlew :inventory-service:bootRunLocal
     
 ## Calling the Service
 The demo service is initialized with dummy product ids ranging from `001` - `010`.
