@@ -1,13 +1,23 @@
 package demo.product.controller.model;
 
+import demo.product.service.model.PriceInfo;
 import demo.product.service.model.ProductInfo;
+import demo.product.service.model.SkuInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductInfoResponse {
 
     public static ProductInfoResponse from(final ProductInfo productInfo) {
         ProductInfoResponse response = new ProductInfoResponse();
+
+        response.setProductId(productInfo.getProductId());
+        response.setActive(productInfo.isActive());
+        response.setShortName(productInfo.getShortName());
+        response.setLongName(productInfo.getLongName());
+        response.setDescription(productInfo.getDescription());
+        productInfo.getSkus().forEach(skuInfo -> response.addSku(Sku.from(skuInfo)));
 
         return response;
     }
@@ -17,7 +27,11 @@ public class ProductInfoResponse {
     private String longName;
     private String description;
     private boolean active;
-    private List<Sku> skus;
+    private final List<Sku> skus = new ArrayList<>();
+
+    public void addSku(Sku sku) {
+        this.skus.add(sku);
+    }
 
     public String getProductId() {
         return productId;
@@ -63,14 +77,20 @@ public class ProductInfoResponse {
         return skus;
     }
 
-    public void setSkus(List<Sku> skus) {
-        this.skus = skus;
-    }
-
     /**
      *
      */
-    class Sku {
+    static class Sku {
+
+        static Sku from(SkuInfo skuInfo) {
+            Sku sku = new Sku();
+            sku.setSku(skuInfo.getSku());
+            sku.setActive(skuInfo.isActive());
+            sku.setSize(skuInfo.getSize());
+            sku.setPrices(Prices.from(skuInfo.getPrices()));
+
+            return sku;
+        }
 
         private String sku;
         private boolean active;
@@ -113,7 +133,19 @@ public class ProductInfoResponse {
     /**
      *
      */
-    class Prices {
+    static class Prices {
+
+        static Prices from(PriceInfo priceInfo) {
+           Prices prices = new Prices();
+           prices.setList(priceInfo.getList());
+           prices.setMsrp(priceInfo.getMsrp());
+           prices.setSale(priceInfo.getSale());
+           prices.setFormattedList(priceInfo.getFormattedList());
+           prices.setFormattedMsrp(priceInfo.getFormattedMsrp());
+           prices.setFormattedSale(priceInfo.getFormattedSale());
+
+           return prices;
+        }
 
         private double list;
         private double msrp;
