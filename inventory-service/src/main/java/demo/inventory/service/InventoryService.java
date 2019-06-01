@@ -15,11 +15,22 @@
  */
 package demo.inventory.service;
 
+import demo.inventory.service.model.SkuInventory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class InventoryService {
     private static final Logger LOG = LoggerFactory.getLogger(InventoryService.class);
+
+    public SkuInventory getInventoryForSku(String sku) {
+        return null;
+    }
+
+    public List<SkuInventory> getInventoryForProduct(String productId) {
+        return null;
+    }
 }
