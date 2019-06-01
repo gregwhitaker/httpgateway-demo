@@ -13,7 +13,7 @@ Run the following curl command to call the service for product `001`:
 
     curl http://localhost:8080/inventory/product/001
     
-You should receive a response similar to the following:
+If successful, you will receive a response similar to the following:
 
     {
       "productId": "001",
@@ -31,4 +31,15 @@ You should receive a response similar to the following:
           "units": 53
         }
       ]
+    }
+
+To retrieve the inventory for a single SKU you would run the following curl command:
+
+    http://localhost:8080/inventory/sku/02353
+    
+If successful, you would receive a response similar to the following:
+
+    {
+      "sku": "02353",
+      "units": 92
     }
