@@ -1,13 +1,14 @@
 package demo.product.service.model;
 
+import java.text.DecimalFormat;
+
 public class PriceInfo {
+
+    private final DecimalFormat formatter = new DecimalFormat("#0.00");
 
     private double list;
     private double msrp;
     private double sale;
-    private String formattedList;
-    private String formattedMsrp;
-    private String formattedSale;
 
     public double getList() {
         return list;
@@ -34,26 +35,14 @@ public class PriceInfo {
     }
 
     public String getFormattedList() {
-        return formattedList;
-    }
-
-    public void setFormattedList(String formattedList) {
-        this.formattedList = formattedList;
+        return formatter.format(getList());
     }
 
     public String getFormattedMsrp() {
-        return formattedMsrp;
-    }
-
-    public void setFormattedMsrp(String formattedMsrp) {
-        this.formattedMsrp = formattedMsrp;
+        return formatter.format(getMsrp());
     }
 
     public String getFormattedSale() {
-        return formattedSale;
-    }
-
-    public void setFormattedSale(String formattedSale) {
-        this.formattedSale = formattedSale;
+        return formatter.format(getSale());
     }
 }
