@@ -66,7 +66,7 @@ public class ProductService {
                 PriceInfo priceInfo = new PriceInfo();
                 priceInfo.setSale(generateDummyPrice(10.0));
                 priceInfo.setList(generateDummyPrice(priceInfo.getSale()));
-                priceInfo.setMsrp(generateDummyPrice(priceInfo.getMsrp()));
+                priceInfo.setMsrp(generateDummyPrice(priceInfo.getList()));
 
                 SkuInfo s = new SkuInfo();
                 s.setSku(productId + "-" + String.format("%03d", x));
