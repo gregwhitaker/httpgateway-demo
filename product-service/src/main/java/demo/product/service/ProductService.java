@@ -21,6 +21,6 @@ public class ProductService {
 
     @PostConstruct
     public void init() {
-        
+
     }
 }
