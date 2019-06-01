@@ -74,22 +74,18 @@ public class InventoryService {
         // Initialize the inventory with 10 dummy products
         for (int i = 1; i <= 10; i++) {
             List<SkuInventory> invs = new ArrayList<>();
+            String productId = String.format("%03d", i);
 
-            for (int s = 0; s < RAND.nextInt((10 - 1) + 1) + 1; s++) {
-                SkuInventory inv = initDummySkuInventory();
-                skuInventory.put(inv.getSku(), inv);
-                invs.add(inv);
+            for (int x = 0; x < 3; x++) {
+                SkuInventory s = new SkuInventory();
+                s.setSku(productId + "-" + String.format("%03d", x));
+                s.setUnits(RAND.nextInt((100) + 1));
+
+                invs.add(s);
+                skuInventory.put(s.getSku(), s);
             }
 
-            productInventory.put(String.format("%03d", i), invs);
+            productInventory.put(productId, invs);
         }
-    }
-
-    private SkuInventory initDummySkuInventory() {
-        SkuInventory skuInventory = new SkuInventory();
-        skuInventory.setSku(String.format("%05d", RAND.nextInt((10000) + 1)));
-        skuInventory.setUnits(RAND.nextInt((100) + 1));
-
-        return skuInventory;
     }
 }

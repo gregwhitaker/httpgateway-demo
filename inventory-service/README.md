@@ -14,32 +14,32 @@ Run the following curl command to call the service for product `001`:
     curl http://localhost:8080/inventory/product/001
     
 If successful, you will receive a response similar to the following:
-
+    
     {
       "productId": "001",
       "skus": [
         {
-          "sku": "02353",
-          "units": 92
+          "sku": "001-000",
+          "units": 5
         },
         {
-          "sku": "03349",
-          "units": 29
+          "sku": "001-001",
+          "units": 18
         },
         {
-          "sku": "07626",
-          "units": 53
+          "sku": "001-002",
+          "units": 73
         }
       ]
     }
 
 To retrieve the inventory for a single SKU you would run the following curl command:
 
-    http://localhost:8080/inventory/sku/02353
+    http://localhost:8080/inventory/sku/001-002
     
 If successful, you would receive a response similar to the following:
 
     {
-      "sku": "02353",
+      "sku": "001-002",
       "units": 92
     }
