@@ -18,6 +18,9 @@ package demo.inventory.controller.model;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import demo.inventory.service.model.SkuInventory;
 
+/**
+ * Response returned for SKU inventory requests.
+ */
 @JsonPropertyOrder({
         "sku",
         "units"
@@ -25,9 +28,10 @@ import demo.inventory.service.model.SkuInventory;
 public class SkuInventoryResponse {
 
     /**
+     * Create a {@link SkuInventoryResponse} from a {@link SkuInventory} object.
      *
-     * @param skuInv
-     * @return
+     * @param skuInv sku inventory object to convert
+     * @return a SkuInventoryResponse
      */
     public static SkuInventoryResponse from(SkuInventory skuInv) {
         SkuInventoryResponse response = new SkuInventoryResponse();

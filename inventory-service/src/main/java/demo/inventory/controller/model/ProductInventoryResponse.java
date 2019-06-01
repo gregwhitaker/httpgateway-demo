@@ -21,6 +21,9 @@ import demo.inventory.service.model.SkuInventory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Response returned for product inventory requests.
+ */
 @JsonPropertyOrder({
         "productId",
         "skus"
@@ -28,10 +31,11 @@ import java.util.List;
 public class ProductInventoryResponse {
 
     /**
+     * Create a {@link ProductInventoryResponse} from a list of {@link SkuInventory} objects.
      *
-     * @param productId
-     * @param skus
-     * @return
+     * @param productId the product id
+     * @param skus list of sku inventories to convert
+     * @return a ProductInventoryResponse
      */
     public static ProductInventoryResponse from (String productId, List<SkuInventory> skus) {
         List<SkuInventoryResponse> skuInvResponses = new ArrayList<>(skus.size());
