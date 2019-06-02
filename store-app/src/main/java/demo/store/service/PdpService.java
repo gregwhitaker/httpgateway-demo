@@ -18,8 +18,13 @@ package demo.store.service;
 import demo.store.service.model.InventoryServiceResponse;
 import demo.store.service.model.PdpData;
 import demo.store.service.model.ProductServiceResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -27,13 +32,35 @@ import java.util.List;
 
 @Service
 public class PdpService {
+    private static final Logger LOG = LoggerFactory.getLogger(PdpService.class);
 
     @Autowired
     private RestTemplate restTemplate;
 
     public PdpData getPdpData(String productId) {
-        ProductServiceResponse productInfo = restTemplate.getForObject("http://product-service/products/" + productId, ProductServiceResponse.class);
-        InventoryServiceResponse inventory = restTemplate.getForObject("http://inventory-service/inventory/products/" + productId, InventoryServiceResponse.class);
+        ProductServiceResponse productInfo = null;
+        try {
+            productInfo = restTemplate.getForObject("http://product-service/products/" + productId, ProductServiceResponse.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return null;
+            } else {
+                LOG.error("Error getting product information from product-service", e);
+                throw e;
+            }
+        }
+
+        InventoryServiceResponse inventory = null;
+        try {
+             inventory = restTemplate.getForObject("http://inventory-service/inventory/products/" + productId, InventoryServiceResponse.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return null;
+            } else {
+                LOG.error("Error getting inventory information from product-service", e);
+                throw e;
+            }
+        }
 
         PdpData pdpData = new PdpData();
         pdpData.setProductId(productInfo.getProductId());
@@ -43,7 +70,8 @@ public class PdpService {
         pdpData.setDescription(productInfo.getDescription());
 
         List<PdpData.Sku> skus = new ArrayList<>();
-        productInfo.getSkus().forEach(skuInfo -> {
+
+        for (ProductServiceResponse.Sku skuInfo : productInfo.getSkus()) {
             PdpData.Sku sku = new PdpData.Sku();
             sku.setSku(skuInfo.getSku());
             sku.setActive(skuInfo.isActive());
@@ -65,7 +93,7 @@ public class PdpService {
             sku.setPrices(prices);
 
             skus.add(sku);
-        });
+        }
 
         pdpData.setSkus(skus);
 
