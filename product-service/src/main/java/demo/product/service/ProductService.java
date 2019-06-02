@@ -58,8 +58,8 @@ public class ProductService {
             ProductInfo productInfo = new ProductInfo();
             productInfo.setProductId(productId);
             productInfo.setShortName("Widget " + i);
-            productInfo.setLongName("Super Awesome Widget - " + i);
-            productInfo.setDescription("This is a type of widget");
+            productInfo.setLongName("Some Widget - " + i);
+            productInfo.setDescription(String.format("This is some type of widget-%s that you can't live without!", i));
             productInfo.setActive(true);
 
             for (int x = 0; x < 3; x++) {
