@@ -74,7 +74,7 @@ public class PdpData {
         this.skus = skus;
     }
 
-    static class Sku {
+    public static class Sku {
         private String sku;
         private boolean active;
         private String size;
@@ -122,7 +122,7 @@ public class PdpData {
         }
     }
 
-    static class Prices {
+    public static class Prices {
         private String list;
         private String msrp;
         private String sale;

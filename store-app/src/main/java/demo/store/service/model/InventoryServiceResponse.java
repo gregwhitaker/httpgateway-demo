@@ -26,7 +26,7 @@ public class InventoryServiceResponse {
     /**
      *
      */
-    static class SkuInventoryResponse {
+    public static class SkuInventoryResponse {
 
         private String sku;
         private int units;

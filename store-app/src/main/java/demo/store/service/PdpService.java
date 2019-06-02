@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PdpService {
 
@@ -32,6 +35,40 @@ public class PdpService {
         ProductServiceResponse productInfo = restTemplate.getForObject("http://product-service/products/" + productId, ProductServiceResponse.class);
         InventoryServiceResponse inventory = restTemplate.getForObject("http://inventory-service/inventory/products/" + productId, InventoryServiceResponse.class);
 
-        return null;
+        PdpData pdpData = new PdpData();
+        pdpData.setProductId(productInfo.getProductId());
+        pdpData.setActive(productInfo.isActive());
+        pdpData.setShortName(productInfo.getShortName());
+        pdpData.setLongName(productInfo.getLongName());
+        pdpData.setDescription(productInfo.getDescription());
+
+        List<PdpData.Sku> skus = new ArrayList<>();
+        productInfo.getSkus().forEach(skuInfo -> {
+            PdpData.Sku sku = new PdpData.Sku();
+            sku.setSku(skuInfo.getSku());
+            sku.setActive(skuInfo.isActive());
+            sku.setSize(skuInfo.getSize());
+            sku.setUnits(0);
+
+            for (InventoryServiceResponse.SkuInventoryResponse skuInv : inventory.getSkus()) {
+                if (skuInv.getSku().equals(skuInfo.getSku())) {
+                    sku.setUnits(skuInv.getUnits());
+                    break;
+                }
+            }
+
+            PdpData.Prices prices = new PdpData.Prices();
+            prices.setList(skuInfo.getPrices().getFormattedList());
+            prices.setMsrp(skuInfo.getPrices().getFormattedMsrp());
+            prices.setSale(skuInfo.getPrices().getFormattedSale());
+
+            sku.setPrices(prices);
+
+            skus.add(sku);
+        });
+
+        pdpData.setSkus(skus);
+
+        return pdpData;
     }
 }

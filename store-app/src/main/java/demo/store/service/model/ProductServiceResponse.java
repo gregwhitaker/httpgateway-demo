@@ -63,7 +63,7 @@ public class ProductServiceResponse {
     /**
      *
      */
-    static class Sku {
+    public static class Sku {
 
         private String sku;
         private boolean active;
@@ -106,7 +106,7 @@ public class ProductServiceResponse {
     /**
      *
      */
-    static class Prices {
+    public static class Prices {
 
         private double list;
         private double msrp;
