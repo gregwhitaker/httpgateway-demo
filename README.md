@@ -30,6 +30,8 @@ Run the following command to build the demo components:
         
 5. In a web browser, open the url [http://localhost:8082/product/001](http://localhost:8082/product/001) to view the product in the store application.
 
+    ![pdp-screenshot.png](pdp-screenshot.png)
+
 ## License
 Copyright 2019, [Netifi Inc.](https://www.netifi.com)
 
