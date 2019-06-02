@@ -11,7 +11,7 @@ The demo service is initialized with dummy product ids ranging from `001` - `010
 
 Run the following curl command to call the service for product `001`:
 
-    curl http://localhost:8080/inventory/product/001
+    curl http://localhost:8080/inventory/products/001
     
 If successful, you will receive a response similar to the following:
     
@@ -35,7 +35,7 @@ If successful, you will receive a response similar to the following:
 
 To retrieve the inventory for a single SKU you would run the following curl command:
 
-    http://localhost:8080/inventory/sku/001-002
+    http://localhost:8080/inventory/skus/001-002
     
 If successful, you would receive a response similar to the following:
 

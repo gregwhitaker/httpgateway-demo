@@ -29,7 +29,7 @@ public class PdpController {
     @Autowired
     private PdpService pdpService;
 
-    @GetMapping("/pdp/{productId}")
+    @GetMapping("/product/{productId}")
     public String pdp(@PathVariable("productId") String productId,
                       Model model) {
         PdpData pdpData = pdpService.getPdpData(productId);

@@ -33,7 +33,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/products/{productId}")
     public ResponseEntity<ProductInfoResponse> getProductInfo(@PathVariable("productId") String productId) {
         ACCESS_LOG.info("Received request for getProductInfo [productId: {}]", productId);
 

@@ -11,7 +11,7 @@ The demo service is initialized with dummy product ids ranging from `001` - `010
 
 Run the following curl command to call the service for product `001`:
 
-    curl http://localhost:8081/product/001
+    curl http://localhost:8081/products/001
 
 If successful, you will receive a response similar to the following:
     

@@ -15,13 +15,23 @@
  */
 package demo.store.service;
 
+import demo.store.service.model.InventoryServiceResponse;
 import demo.store.service.model.PdpData;
+import demo.store.service.model.ProductServiceResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PdpService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public PdpData getPdpData(String productId) {
+        ProductServiceResponse productInfo = restTemplate.getForObject("http://product-service/products/" + productId, ProductServiceResponse.class);
+        InventoryServiceResponse inventory = restTemplate.getForObject("http://inventory-service/inventory/products/" + productId, InventoryServiceResponse.class);
+
         return null;
     }
 }

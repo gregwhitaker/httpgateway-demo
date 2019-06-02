@@ -1,50 +1,9 @@
-/**
- * Copyright 2019, Netifi Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package demo.product.controller.model;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import demo.product.service.model.PriceInfo;
-import demo.product.service.model.ProductInfo;
-import demo.product.service.model.SkuInfo;
+package demo.store.service.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonPropertyOrder({
-        "productId",
-        "shortName",
-        "longName",
-        "description",
-        "active",
-        "skus"
-})
-public class ProductInfoResponse {
-
-    public static ProductInfoResponse from(final ProductInfo productInfo) {
-        ProductInfoResponse response = new ProductInfoResponse();
-
-        response.setProductId(productInfo.getProductId());
-        response.setActive(productInfo.isActive());
-        response.setShortName(productInfo.getShortName());
-        response.setLongName(productInfo.getLongName());
-        response.setDescription(productInfo.getDescription());
-        productInfo.getSkus().forEach(skuInfo -> response.addSku(Sku.from(skuInfo)));
-
-        return response;
-    }
+public class ProductServiceResponse {
 
     private String productId;
     private String shortName;
@@ -104,23 +63,7 @@ public class ProductInfoResponse {
     /**
      *
      */
-    @JsonPropertyOrder({
-            "sku",
-            "active",
-            "size",
-            "prices"
-    })
     static class Sku {
-
-        static Sku from(SkuInfo skuInfo) {
-            Sku sku = new Sku();
-            sku.setSku(skuInfo.getSku());
-            sku.setActive(skuInfo.isActive());
-            sku.setSize(skuInfo.getSize());
-            sku.setPrices(Prices.from(skuInfo.getPrices()));
-
-            return sku;
-        }
 
         private String sku;
         private boolean active;
@@ -163,27 +106,7 @@ public class ProductInfoResponse {
     /**
      *
      */
-    @JsonPropertyOrder({
-            "list",
-            "msrp",
-            "sale",
-            "formattedList",
-            "formattedMsrp",
-            "formattedSale"
-    })
     static class Prices {
-
-        static Prices from(PriceInfo priceInfo) {
-           Prices prices = new Prices();
-           prices.setList(priceInfo.getList());
-           prices.setMsrp(priceInfo.getMsrp());
-           prices.setSale(priceInfo.getSale());
-           prices.setFormattedList(priceInfo.getFormattedList());
-           prices.setFormattedMsrp(priceInfo.getFormattedMsrp());
-           prices.setFormattedSale(priceInfo.getFormattedSale());
-
-           return prices;
-        }
 
         private double list;
         private double msrp;

@@ -45,7 +45,7 @@ public class InventoryController {
      * @param productId product id
      * @return inventory for all skus of the product
      */
-    @GetMapping("/inventory/product/{productId}")
+    @GetMapping("/inventory/products/{productId}")
     public ResponseEntity<ProductInventoryResponse> getProductInventory(@PathVariable("productId") String productId) {
         ACCESS_LOG.info("Received request for getProductInventory [productId: {}]", productId);
 
@@ -59,7 +59,7 @@ public class InventoryController {
      * @param skuId stockkeeping unit
      * @return inventory for the SKU
      */
-    @GetMapping("/inventory/sku/{skuId}")
+    @GetMapping("/inventory/skus/{skuId}")
     public ResponseEntity<SkuInventoryResponse> getSkuInventory(@PathVariable("skuId") String skuId) {
         ACCESS_LOG.info("Received request for getSkuInventory [skuId: {}]", skuId);
 
