@@ -21,6 +21,7 @@ public class PdpData {
 
     private String productId;
     private boolean active;
+    private boolean soldout = false;
     private String shortName;
     private String longName;
     private String description;
@@ -40,6 +41,14 @@ public class PdpData {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isSoldout() {
+        return soldout;
+    }
+
+    public void setSoldout(boolean soldout) {
+        this.soldout = soldout;
     }
 
     public String getShortName() {

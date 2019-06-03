@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -57,9 +56,14 @@ public class PdpService {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 return null;
             } else {
-                LOG.error("Error getting inventory information from product-service", e);
-                throw e;
+                // Don't fail if we do not have inventory information, just log it and we
+                // will mark the product as temporarily sold out
+                LOG.error("Error getting inventory information from inventory-service", e);
             }
+        } catch (Exception e) {
+            // Don't fail if we do not have inventory information, just log it and we
+            // will mark the product as temporarily sold out
+            LOG.error("Error getting inventory information from inventory-service", e);
         }
 
         PdpData pdpData = new PdpData();
@@ -78,10 +82,12 @@ public class PdpService {
             sku.setSize(skuInfo.getSize());
             sku.setUnits(0);
 
-            for (InventoryServiceResponse.SkuInventoryResponse skuInv : inventory.getSkus()) {
-                if (skuInv.getSku().equals(skuInfo.getSku())) {
-                    sku.setUnits(skuInv.getUnits());
-                    break;
+            if (inventory != null) {
+                for (InventoryServiceResponse.SkuInventoryResponse skuInv : inventory.getSkus()) {
+                    if (skuInv.getSku().equals(skuInfo.getSku())) {
+                        sku.setUnits(skuInv.getUnits());
+                        break;
+                    }
                 }
             }
 
@@ -96,6 +102,11 @@ public class PdpService {
         }
 
         pdpData.setSkus(skus);
+
+        // If all skus do not have any inventory then mark the product sold out
+        if (pdpData.getSkus().stream().noneMatch(sku -> sku.getUnits() > 0)) {
+            pdpData.setSoldout(true);
+        }
 
         return pdpData;
     }

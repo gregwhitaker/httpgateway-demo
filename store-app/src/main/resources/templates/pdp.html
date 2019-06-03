@@ -57,14 +57,22 @@
                             </ul>
                         </div>
                         <hr class="mb48 mb-xs-24">
-                        <form class="add-to-cart">
-                            <select class="form-control" th:field="${pdpData.skus}" id="${selectedSku}">
-                                <option value="0">Select Size</option>
-                                <option th:each="sku : ${pdpData.skus}" th:value="${sku.sku}" th:text="${sku.size + ' - ' + sku.units + ' In Stock'}">
-                            </select>
-                            <input type="text" placeholder="QTY">
-                            <input type="submit" value="Add To Cart">
-                        </form>
+
+                        <!-- IF PRODUCT SOLD OUT -->
+                        <div th:if="${pdpData.soldout}">
+                            <h3>SOLD OUT!</h3>
+                        </div>
+                        <!-- ELSE -->
+                        <div th:unless="${pdpData.soldout}">
+                            <form class="add-to-cart">
+                                <select class="form-control" th:field="${pdpData.skus}" id="${selectedSku}">
+                                    <option value="0">Select Size</option>
+                                    <option th:each="sku : ${pdpData.skus}" th:value="${sku.sku}" th:text="${sku.size + ' - ' + sku.units + ' In Stock'}">
+                                </select>
+                                <input type="text" placeholder="QTY">
+                                <input type="submit" value="Add To Cart">
+                            </form>
+                        </div>
                     </div>
                 </div>
 
