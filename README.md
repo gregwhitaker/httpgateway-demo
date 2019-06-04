@@ -13,6 +13,11 @@ Run the following command to build the demo components:
 
     ./gradlew clean build
 
+## Building the Demo for Docker
+Run the following command to build the demo components as Docker containers:
+
+    ./gradlew clean buildImage
+
 ## Running the Demo
 1. Ensure that you have a local Consul cluster running.
 
