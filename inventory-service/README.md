@@ -6,6 +6,11 @@ Run the following command to start the service:
 
     ./gradlew :inventory-service:bootRunLocal
     
+## Running the Service in Docker
+Run the following command to start the service as a Docker container:
+
+    docker run -e SPRING_PROFILES_ACTIVE='localdocker' -p 8080:8080 netifi/httpgateway-demo-inventory-service
+    
 ## Calling the Service
 The demo service is initialized with dummy product ids ranging from `001` - `010`.
 

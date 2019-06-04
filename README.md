@@ -36,6 +36,23 @@ Run the following command to build the demo components as Docker containers:
 5. In a web browser, open the url [http://localhost:8082/product/001](http://localhost:8082/product/001) to view the product in the store application.
 
     ![pdp-screenshot.png](pdp-screenshot.png)
+    
+## Running the Demo in Docker
+1. Ensure that you have a local Consul cluster running.
+
+2. In a new terminal, run the following command to start the product service:
+
+        docker run -e SPRING_PROFILES_ACTIVE='localdocker' -p 8081:8081 netifi/httpgateway-demo-product-service
+        
+3. In a new terminal, run the following command to start the inventory service:
+
+        docker run -e SPRING_PROFILES_ACTIVE='localdocker' -p 8080:8080 netifi/httpgateway-demo-inventory-service
+        
+4. In a new terminal, run the following command to start the store application:
+
+        docker run -e SPRING_PROFILES_ACTIVE='localdocker' -p 8082:8082 netifi/httpgateway-demo-store-app
+                
+5. In a web browser, open the url [http://localhost:8082/product/001](http://localhost:8082/product/001) to view the product in the store application.
 
 ## License
 Copyright 2019, [Netifi Inc.](https://www.netifi.com)

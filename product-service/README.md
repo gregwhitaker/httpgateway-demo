@@ -5,6 +5,11 @@ Service that returns product data for display on a PDP page.
 Run the following command to start the service:
 
     ./gradlew :product-service:bootRunLocal
+
+## Running the Service in Docker
+Run the following command to start the service as a Docker container:
+
+    docker run -e SPRING_PROFILES_ACTIVE='localdocker' -p 8081:8081 netifi/httpgateway-demo-product-service
     
 ## Calling the Service
 The demo service is initialized with dummy product ids ranging from `001` - `010`.
