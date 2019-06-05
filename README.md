@@ -1,5 +1,5 @@
 # httpgateway-demo
-Simple application for demonstrating the routing capabilities of the Netifi HTTP Gateway.
+Simple set of microservices for displaying a product detail page on an e-commerce site.
 
 ## Prerequisites
 This demo requires a running [Consul](https://www.consul.io/docs/index.html) instance for service discovery.
